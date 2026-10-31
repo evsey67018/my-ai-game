@@ -1,0 +1,143 @@
+/* My AI Arcade — сенсорные кнопки и всплывающие уведомления поверх холста. */
+
+/* Размеры внутри сцены задаются в «логических» пикселях 540×960 через --ui-scale. */
+#touch-controls {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.touch-btn {
+  position: absolute;
+  pointer-events: auto;
+  width: calc(78px * var(--ui-scale));
+  height: calc(78px * var(--ui-scale));
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.28);
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.22), rgba(20, 30, 70, 0.45));
+  font-size: calc(30px * var(--ui-scale));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(2px);
+  transition: transform 0.08s, background 0.15s;
+  touch-action: none;
+  opacity: 0.85;
+}
+
+.touch-btn.pressed {
+  transform: scale(0.9);
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.45), rgba(51, 225, 255, 0.4));
+}
+
+#btn-bomb {
+  right: calc(18px * var(--ui-scale));
+  bottom: calc(150px * var(--ui-scale));
+  border-color: rgba(255, 138, 61, 0.55);
+}
+
+#btn-dash {
+  right: calc(18px * var(--ui-scale));
+  bottom: calc(240px * var(--ui-scale));
+  border-color: rgba(94, 240, 255, 0.55);
+}
+
+.touch-btn.small {
+  width: calc(44px * var(--ui-scale));
+  height: calc(44px * var(--ui-scale));
+  font-size: calc(16px * var(--ui-scale));
+  top: calc(122px * var(--ui-scale));
+  right: calc(12px * var(--ui-scale));
+}
+
+body:not(.in-game) #touch-controls {
+  display: none;
+}
+
+/* ---------- Уведомления ---------- */
+#toasts {
+  position: absolute;
+  left: 50%;
+  top: calc(150px * var(--ui-scale));
+  transform: translateX(-50%);
+  width: calc(440px * var(--ui-scale));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(8px * var(--ui-scale));
+  pointer-events: none;
+  z-index: 30;
+}
+
+.toast {
+  --c: var(--accent);
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: calc(10px * var(--ui-scale));
+  padding: calc(9px * var(--ui-scale)) calc(14px * var(--ui-scale));
+  min-width: 55%;
+  max-width: 100%;
+  background: rgba(8, 12, 30, 0.9);
+  border: 1px solid color-mix(in srgb, var(--c) 55%, transparent);
+  border-left: 4px solid var(--c);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 18px color-mix(in srgb, var(--c) 25%, transparent);
+  font-size: calc(15px * var(--ui-scale));
+  opacity: 0;
+  transform: translateY(-14px) scale(0.96);
+  transition: opacity 0.22s, transform 0.22s;
+}
+
+.toast.in {
+  opacity: 1;
+  transform: none;
+}
+
+.toast.out {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.96);
+}
+
+.toast-icon {
+  font-size: 1.4em;
+  line-height: 1;
+}
+
+.toast-body {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.toast-body b {
+  color: var(--c);
+  font-size: 0.85em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.toast-count {
+  margin-left: auto;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.toast.achievement {
+  background: linear-gradient(90deg, rgba(60, 38, 4, 0.95), rgba(12, 14, 30, 0.95));
+  animation: toast-glow 1.2s ease-in-out 2;
+}
+
+@keyframes toast-glow {
+  50% {
+    box-shadow: 0 0 30px rgba(255, 176, 46, 0.6);
+  }
+}
+
+/* Поверх меню (пауза, итоги) уведомления прижимаются к верхнему краю,
+   чтобы не закрывать заголовок экрана. */
+body.paused #toasts,
+body:not(.in-game) #toasts {
+  top: calc(10px * var(--ui-scale));
+}

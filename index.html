@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#05060f">
+  <meta name="description" content="My AI Arcade: Нейронный Рубеж — космический шутер-рогалик прямо в браузере.">
+  <title>My AI Arcade — Нейронный Рубеж</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpolygon points='32,4 58,58 32,46 6,58' fill='%2300e5ff'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/menus.css">
+  <link rel="stylesheet" href="css/hud.css">
+</head>
+<body>
+  <div id="app">
+    <div id="stage">
+      <canvas id="game" width="540" height="960" aria-label="Игровое поле"></canvas>
+
+      <!-- Сенсорное управление -->
+      <div id="touch-controls" class="hidden">
+        <button id="btn-bomb" class="touch-btn" aria-label="Бомба">💣</button>
+        <button id="btn-dash" class="touch-btn" aria-label="Рывок">⚡</button>
+        <button id="btn-pause" class="touch-btn small" aria-label="Пауза">❚❚</button>
+      </div>
+
+      <!-- Слой меню -->
+      <div id="ui-root"></div>
+
+      <!-- Всплывающие уведомления -->
+      <div id="toasts"></div>
+    </div>
+  </div>
+
+  <noscript>Для игры нужен включённый JavaScript.</noscript>
+
+  <script src="js/util.js"></script>
+  <script src="js/save.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/music.js"></script>
+  <script src="js/input.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/background.js"></script>
+  <script src="js/data/weapons.js"></script>
+  <script src="js/data/upgrades.js"></script>
+  <script src="js/data/perks.js"></script>
+  <script src="js/data/achievements.js"></script>
+  <script src="js/data/levels.js"></script>
+  <script src="js/entities/bullets.js"></script>
+  <script src="js/entities/patterns.js"></script>
+  <script src="js/entities/player.js"></script>
+  <script src="js/entities/drones.js"></script>
+  <script src="js/entities/enemies.js"></script>
+  <script src="js/entities/bosses.js"></script>
+  <script src="js/entities/powerups.js"></script>
+  <script src="js/director.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/ui/hud.js"></script>
+  <script src="js/ui/menus.js"></script>
+  <script src="js/ui/toasts.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
